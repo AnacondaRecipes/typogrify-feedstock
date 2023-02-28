@@ -13,6 +13,7 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv
+  skip: True  # [py<36]
 
 requirements:
   host:
@@ -21,7 +22,7 @@ requirements:
     - wheel
     - python
   run:
-    - python >=3.6
+    - python
     - smartypants >=1.8.3
 
 test:
