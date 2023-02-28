@@ -12,15 +12,17 @@ source:
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps
+  skip: True  # [py<36]
 
 requirements:
   host:
     - pip
+    - setuptools
+    - wheel
     - python
   run:
-    - python >=3.6
+    - python
     - smartypants >=1.8.3
 
 test:
@@ -35,8 +37,16 @@ test:
 about:
   home: https://github.com/mintchaos/typogrify
   summary: Filters to enhance web typography, including support for Django & Jinja templates
+  description: |
+    Typogrify provides a set of custom filters that automatically apply various
+    transformations to plain text in order to yield typographically-improved
+    HTML. While often used in conjunction with Jinja and Django template systems,
+    the filters can be used in any environment.
   license: BSD-3-Clause
+  license_family: BSD
   license_file: LICENSE.txt
+  doc_url: https://github.com/mintchaos/typogrify
+  dev_url: https://github.com/mintchaos/typogrify
 
 extra:
   recipe-maintainers:
