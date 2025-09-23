@@ -6,12 +6,12 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/typogrify-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: f0aa004e98032a6e6be4c9da65e7eb7150e36ca3bf508adbcda82b4d003e61ee
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv --no-deps
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vv
   skip: true  # [py<39]
 
 requirements:
@@ -24,16 +24,23 @@ requirements:
     - smartypants >=1.8.3
 
 test:
+  source_files:
+    - typogrify/packages/titlecase/__init__.py
+    - typogrify/packages/titlecase/tests.py
   imports:
     - typogrify
+    - typogrify.filters
     - typogrify.packages
-  commands:
-    - pip check
   requires:
     - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -ra -vv typogrify/packages/titlecase/tests.py
 
 about:
-  home: https://github.com/mintchaos/typogrify
+  home: hhttps://github.com/justinmayer/typogrify
   summary: Filters to enhance web typography, including support for Django & Jinja templates
   description: |
     Typogrify provides a set of custom filters that automatically apply various
@@ -42,9 +49,8 @@ about:
     the filters can be used in any environment.
   license: BSD-3-Clause
   license_family: BSD
-  license_file: LICENSE.txt
-  doc_url: https://github.com/mintchaos/typogrify
-  dev_url: https://github.com/mintchaos/typogrify
+  doc_url: https://github.com/justinmayer/typogrify
+  dev_url: https://github.com/justinmayer/typogrify
 
 extra:
   recipe-maintainers:
