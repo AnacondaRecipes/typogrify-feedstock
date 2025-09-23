@@ -40,7 +40,7 @@ test:
     - pytest -ra -vv typogrify/packages/titlecase/tests.py
 
 about:
-  home: hhttps://github.com/justinmayer/typogrify
+  home: https://github.com/justinmayer/typogrify
   summary: Filters to enhance web typography, including support for Django & Jinja templates
   description: |
     Typogrify provides a set of custom filters that automatically apply various
@@ -49,6 +49,7 @@ about:
     the filters can be used in any environment.
   license: BSD-3-Clause
   license_family: BSD
+  license_file: LICENSE.txt
   doc_url: https://github.com/justinmayer/typogrify
   dev_url: https://github.com/justinmayer/typogrify
 
